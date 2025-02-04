@@ -1,5 +1,8 @@
 # Controle Financeiro
 
+![Imagem do WhatsApp de 2025-02-04 à(s) 17 19 45_293cbecd](https://github.com/user-attachments/assets/d4784867-2d00-4af6-a955-f485836a354c)
+
+
 O **BolsoAtento** começou como um projetinho em Java para registrar receitas e despesas no console (CLI), mas a ideia é ir muito além disso. Quero evoluir pra algo muito mais completo, com:
 
 - **Banco de Dados** para guardar tudo com segurança,
