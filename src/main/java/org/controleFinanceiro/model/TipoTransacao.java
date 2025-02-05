@@ -1,4 +1,4 @@
-package org.controleFinanceiro;
+package org.controleFinanceiro.model;
 
 public enum TipoTransacao {
     ENTRADA,

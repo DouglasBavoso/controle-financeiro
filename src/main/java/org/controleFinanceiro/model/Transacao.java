@@ -1,4 +1,4 @@
-package org.controleFinanceiro;
+package org.controleFinanceiro.model;
 
 import java.time.LocalDate;
 
