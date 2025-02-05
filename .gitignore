@@ -1,0 +1,7 @@
+# Ignorar a pasta target/ onde ficam os builds do Maven
+target/
+
+# Ignorar arquivos temporários do Maven
+*.lst
+*.original
+*.jar
