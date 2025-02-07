@@ -1,8 +1,13 @@
 package org.controleFinanceiro.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.controleFinanceiro.model.TipoTransacao;
 import org.controleFinanceiro.model.Transacao;
 import org.controleFinanceiro.service.TransacaoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,32 +23,36 @@ public class TransacaoController {
         this.transacaoService = transacaoService;
     }
 
-    // POST /api/transacoes -> cadastra nova transação
-    @PostMapping
-    public String adicionarTransacao(@RequestBody Transacao transacao) {
+    @Operation(summary = "Cadastra uma nova transação", description = "Insere uma transação no sistema.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Transação cadastrada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro nos dados enviados")
+    })
+    // Criar uma nova transação
+    @PostMapping("/cadastrar")
+    public ResponseEntity<String> cadastrarTransacao(@RequestBody Transacao transacao) {
         transacaoService.adicionarTransacao(transacao);
-        return "Transação adicionada com sucesso!";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Transação cadastrada com sucesso!");
     }
 
-    // GET /api/transacoes -> lista todas as transações
-    @GetMapping
+    // Listar todas as transações
+    @GetMapping("/listar")
     public List<Transacao> listarTransacoes() {
         return transacaoService.listarTransacoes();
     }
 
-    // GET /api/transacoes/saldo -> exibe o saldo atual
-    @GetMapping("/saldo")
-    public double exibirSaldo() {
-        return transacaoService.calcularSaldo();
-    }
-
-    // GET /api/transacoes/tipo/ENTRADA -> filtra por tipo
-    @GetMapping("/tipo/{tipo}")
+    // Filtrar transações por tipo (ENTRADA/SAIDA)
+    @GetMapping("/listar/tipo/{tipo}")
     public List<Transacao> listarPorTipo(@PathVariable TipoTransacao tipo) {
         return transacaoService.listarTransacoes()
                 .stream()
                 .filter(t -> t.getTipo() == tipo)
                 .collect(Collectors.toList());
+    }
 
+    // Consultar saldo
+    @GetMapping("/consultar-saldo")
+    public double consultarSaldo() {
+        return transacaoService.calcularSaldo();
     }
 }
