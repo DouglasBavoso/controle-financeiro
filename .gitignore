@@ -6,3 +6,4 @@ target/
 *.original
 *.jar
 *.xml
+*.idea
